@@ -1,0 +1,2 @@
+# MessageProcessingApplicationJP
+Technical Test
