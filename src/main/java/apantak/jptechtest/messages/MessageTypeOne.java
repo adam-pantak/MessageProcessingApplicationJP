@@ -19,7 +19,7 @@ public class MessageTypeOne implements Message {
 
 	public void processMessage() {
 		SalesController.salesList.add(new Sale(product, value));
-		System.out.println("Sale recorded for product: " + product + " valued at: " + value);
+//		System.out.println("Sale recorded for product: [" + product + "] valued at: [" + value + "]");
 	}
 
 }

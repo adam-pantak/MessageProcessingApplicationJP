@@ -18,4 +18,8 @@ public class Sale {
 	public BigDecimal getValue() {
 		return value;
 	}
+
+	public void setValue(BigDecimal value) {
+		this.value = value;
+	}
 }

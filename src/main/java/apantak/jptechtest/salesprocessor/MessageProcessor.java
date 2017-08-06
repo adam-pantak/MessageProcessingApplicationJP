@@ -6,32 +6,16 @@ import salesproduction.JsonReceivedMessage;
 
 public class MessageProcessor {
 	private static final int SALES_LIMIT = 50;
-	int numberOfSalesLogged = 0;
-	boolean isLimitReached;
+	public static final int LOG_INTERVAL = 10;
 	
 	public void processSale(JsonReceivedMessage receivedMessage) {
-		if(isLimitReached) {
-			return;
-		}
-		
-		if(SalesController.salesList.size() == SALES_LIMIT) {
-			// log that it is pausing, stop accepting new messages and log a report of the adjustments that have been made to each sale type while the application was running.
-			System.out.println(SALES_LIMIT + " sales reached. Pausing...");
-			for(String product : SalesController.listOfAdjustmentsMade.keySet()) {
-				for(String adjustment : SalesController.listOfAdjustmentsMade.get(product)) {
-					System.out.println(product + ": " + adjustment);
-				}
-			}
-			isLimitReached = true;
-			return;
-		}
+		// if 50 sales reached, stop processing and log a detailing report
+		if(SalesController.controlSalesLimit(SALES_LIMIT, LOG_INTERVAL)) return;
+		// get the right instance of a Message, depending on the Json data received
 		Message message = MessageFactory.getMessage(receivedMessage);
+		// process message according to the type received
 		message.processMessage();
-		
-		if(SalesController.salesList.size() % 10 == 0) {
-			// log a report detailing the number of sales of each product and their total value.
-		}
-		
+		// every 10th message received log a report detailing the number of sales of each product and total value.
+		SalesController.logReportEveryInterval(LOG_INTERVAL);
 	}
-	
 }

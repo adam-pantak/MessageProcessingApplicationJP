@@ -1,24 +1,28 @@
 package salesproduction;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import apantak.jptechtest.sales.Sale;
 
 public class ProduceSalesTest {
 	
 	
 	@Test
 	public void test_addSales() {
+		ProduceSales.availableFruitsList = new ArrayList<String>();
+		ProduceSales.receivedMessageList = new ArrayList<JsonReceivedMessage>();
+		DecimalFormat f = new DecimalFormat("##.00");
 		ProduceSales.createTestData();
-		// test if 100 sales are produced
-		Assert.assertTrue(ProduceSales.availableFruitsList.size() == 90);
+		// test if 90 sales are produced
+		Assert.assertEquals(90, ProduceSales.receivedMessageList.size());
 		
-		// test if the values generated are bigger than 10 and smaller than 21
+		// test if the values generated are greater than 9 and smaller than 21
 		for(JsonReceivedMessage receivedMessage : ProduceSales.receivedMessageList) {
-			Assert.assertTrue((receivedMessage.getValue().compareTo(new BigDecimal(10)) > 0) && receivedMessage.getValue().compareTo(new BigDecimal(21)) < 0);
+			System.out.println(receivedMessage.getValue());
+			Assert.assertEquals(true, (receivedMessage.getValue().compareTo(new BigDecimal(f.format(0.09))) > 0) && (receivedMessage.getValue().compareTo(new BigDecimal(f.format(0.21))) < 0));
 		}
 	}
 }

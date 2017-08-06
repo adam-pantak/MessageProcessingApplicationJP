@@ -25,11 +25,11 @@ public class MessageTypeThree extends MessageTypeOne {
 		for(Sale sale : SalesController.salesList) {
 			if(sale.getType().equals(product)) {
 				if(operation.equals(AdjustmentOperations.ADD)) {
-					sale.getValue().add(adjustmentValue);
+					sale.setValue(sale.getValue().add(adjustmentValue));
 				} else if (operation.equals(AdjustmentOperations.SUBTRACT)) {
-					sale.getValue().subtract(adjustmentValue);
+					sale.setValue(sale.getValue().subtract(adjustmentValue));
 				} else if (operation.equals(AdjustmentOperations.MULTIPLY)) {
-					sale.getValue().multiply(adjustmentValue);
+					sale.setValue(sale.getValue().multiply(adjustmentValue));
 				}
 			}
 		}

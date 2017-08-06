@@ -1,10 +1,8 @@
 package salesprocessor;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertThat;
-
 import java.math.BigDecimal;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import apantak.jptechtest.messages.Message;
@@ -21,7 +19,7 @@ public class MessageFactoryTest {
 		JsonReceivedMessage jsonMessage = new JsonReceivedMessage("add", new BigDecimal(30), null, "apple", new BigDecimal(10));
 		
 		Message message = MessageFactory.getMessage(jsonMessage);
-		assertThat(message.getClass(), instanceOf(MessageTypeThree.class));
+		Assert.assertEquals(MessageTypeThree.class, message.getClass());
 	}
 	
 	@Test
@@ -29,7 +27,7 @@ public class MessageFactoryTest {
 		JsonReceivedMessage jsonMessage = new JsonReceivedMessage("add", new BigDecimal(30), 3, null, null);
 
 		Message message = MessageFactory.getMessage(jsonMessage);
-		assertThat(message.getClass(), instanceOf(MessageTypeTwo.class));
+		Assert.assertEquals(MessageTypeTwo.class, message.getClass());
 	}
 	
 	@Test
@@ -37,7 +35,7 @@ public class MessageFactoryTest {
 		JsonReceivedMessage jsonMessage = new JsonReceivedMessage("add", new BigDecimal(30), null, null, null);
 		
 		Message message = MessageFactory.getMessage(jsonMessage);
-		assertThat(message.getClass(), instanceOf(MessageTypeOne.class));
+		Assert.assertEquals(MessageTypeOne.class, message.getClass());
 		
 	}
 }
